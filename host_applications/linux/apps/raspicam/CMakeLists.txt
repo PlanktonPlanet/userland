@@ -59,7 +59,7 @@ add_executable(raspistill ${COMMON_SOURCES} RaspiStill.c  ${EGL_SOURCES} ${GL_SC
 add_executable(raspiyuv   ${COMMON_SOURCES} RaspiStillYUV.c)
 add_executable(raspivid   ${COMMON_SOURCES} RaspiVid.c)
 add_executable(raspividyuv  ${COMMON_SOURCES} RaspiVidYUV.c)
-add_executable(raspimjpeg RaspiMJPEG.c)
+add_executable(raspimjpeg RaspiMJPEG.c RaspiMCam.c RaspiMCmds.c RaspiMUtils.c)
 
 set (MMAL_LIBS mmal_core mmal_util mmal_vc_client)
 
