@@ -42,6 +42,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #include "RaspiMJPEG.h"
 
+extern struct timespec currTime;
+extern struct tm *localTime;
+
 void mmalLog(char *msg, ...) {
 	if (cfg_stru[c_mmal_logfile]) {
 		va_list args;

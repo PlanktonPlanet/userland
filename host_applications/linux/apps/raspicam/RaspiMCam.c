@@ -43,6 +43,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "RaspiMJPEG.h"
 
+struct timespec currTime;
+struct tm *localTime;
+
+
 static void camera_control_callback (MMAL_PORT_T *port, MMAL_BUFFER_HEADER_T *buffer) {
 
    if(buffer->cmd != MMAL_EVENT_PARAMETER_CHANGED) error("Camera sent invalid data", 0);
@@ -423,7 +427,7 @@ void capt_img (void) {
       if(status != MMAL_SUCCESS) printLog("Could not set stat_pass\n");
       status = mmal_port_parameter_set_boolean(camera->output[2], MMAL_PARAMETER_CAPTURE, 1);
       if(status == MMAL_SUCCESS) {
-         printLog("Capturing image\n");
+         printLog("Capturing image to %s\n", filename_image);
          if (cfg_val[c_callback_timeout] > 0) {
             i_capturing = c_callback_timeout;
          } else {

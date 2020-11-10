@@ -42,6 +42,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #include "RaspiMJPEG.h"
 
+extern struct timespec currTime;
+extern struct tm *localTime;
+
 int motion_width, motion_height, motion_img_width, motion_img_height;
 int motion_init_count;
 int motion_frame_count;

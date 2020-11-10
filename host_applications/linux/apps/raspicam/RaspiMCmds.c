@@ -43,9 +43,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#define MOTION_INTERNAL
 #include "RaspiMJPEG.h"
 
+extern struct timespec currTime;
+extern struct tm *localTime;
+
+
 void process_cmd(char *readbuf, int length) {
-   typedef enum pipe_cmd_type{ca,im,tl,px,bo,tv,vi,an,as,at,ac,ab,sh,co,br,sa,is,vs,rl,ec,em,wb,ag,mm,ie,ce,ro,fl,ri,ss,qu,pv,bi,ru,md,sc,rs,bu,mn,mt,mi,ms,mb,me,mc,mx,mf,mz,vm,vp,wd,sy,um,cn,st,ls,qp} pipe_cmd_type;
-   char pipe_cmds[] = "ca,im,tl,px,bo,tv,vi,an,as,at,ac,ab,sh,co,br,sa,is,vs,rl,ec,em,wb,ag,mm,ie,ce,ro,fl,ri,ss,qu,pv,bi,ru,md,sc,rs,bu,mn,mt,mi,ms,mb,me,mc,mx,mf,mz,vm,vp,wd,sy,um,cn,st,ls,qp";
+   typedef enum pipe_cmd_type{ca,im,tl,px,bo,tv,vi,an,as,at,ac,ab,sh,co,br,sa,is,vs,rl,ec,em,wb,ag,mm,fn,ie,ce,ro,fl,ri,ss,qu,pv,bi,ru,md,sc,rs,bu,mn,mt,mi,ms,mb,me,mc,mx,mf,mz,vm,vp,wd,sy,um,cn,st,ls,qp} pipe_cmd_type;
+   char pipe_cmds[] = "ca,im,tl,px,bo,tv,vi,an,as,at,ac,ab,sh,co,br,sa,is,vs,rl,ec,em,wb,ag,mm,fn,ie,ce,ro,fl,ri,ss,qu,pv,bi,ru,md,sc,rs,bu,mn,mt,mi,ms,mb,me,mc,mx,mf,mz,vm,vp,wd,sy,um,cn,st,ls,qp";
    pipe_cmd_type pipe_cmd;
    int parcount;
    char pars[128][10];
@@ -105,6 +109,10 @@ void process_cmd(char *readbuf, int length) {
          }
          break;
       case im:
+         if(par0 >= 1){
+            printLog("Capturing to file \n");
+            addUserValue(c_image_path, parstring);
+         }
          capt_img();
          break;
       case tl:
@@ -202,10 +210,13 @@ void process_cmd(char *readbuf, int length) {
          break;
       case ag:
          addUserValue(c_autowbgain_b, pars[1]);
-		 key = c_autowbgain_r;
+		   key = c_autowbgain_r;
          break;
       case mm:
          key = 1000 + c_metering_mode;
+         break;
+      case fn:
+         addUserValue(c_image_path, parstring);
          break;
       case ie:
          key = 1000 + c_image_effect;

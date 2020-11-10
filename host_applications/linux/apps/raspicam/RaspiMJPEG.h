@@ -127,8 +127,6 @@ typedef enum cfgkey_type
    c_camera_num,c_stat_pass,c_user_annotate,c_count_format,c_minimise_frag,c_initial_quant,c_encode_qp,c_mmal_logfile,c_stop_pause,
    } cfgkey_type; 
 
-struct timespec currTime;
-struct tm *localTime;
 
 //Utils
 void mmalLog(char *msg, ...);
