@@ -75,7 +75,7 @@ extern unsigned char buffering, buffering_toggle;
 #define MAX_COMMAND_LEN 256
 
 //PIPE processing
-#define FIFO_MAX 10
+#define FIFO_MAX 2
 extern char readbuf[FIFO_MAX][2 * MAX_COMMAND_LEN];
 extern int fd[FIFO_MAX], readi[FIFO_MAX];
 

@@ -109,7 +109,7 @@ void process_cmd(char *readbuf, int length) {
          }
          break;
       case im:
-         if(par0 >= 1){
+    if (parstring != 0) {
             printLog("Capturing to file \n");
             addUserValue(c_image_path, parstring);
          }
