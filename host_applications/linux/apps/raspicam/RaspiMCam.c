@@ -47,6 +47,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct timespec currTime;
 struct tm *localTime;
 
+extern char cfg_path[256];
+
 static void camera_control_callback(MMAL_PORT_T *port,
                                     MMAL_BUFFER_HEADER_T *buffer) {
 
@@ -1107,7 +1109,7 @@ void start_all(int load_conf) {
   set_counts();
   // reload config if requested
   if (load_conf != 0) {
-    read_config("/etc/raspimjpeg", 1);
+    read_config(cfg_path, 1);
     if (cfg_stru[c_user_config] != 0)
       read_config(cfg_stru[c_user_config], 0);
   }

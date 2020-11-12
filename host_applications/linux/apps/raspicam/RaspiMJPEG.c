@@ -61,6 +61,8 @@ MMAL_POOL_T *pool_jpegencoder = 0, *pool_jpegencoder_in = 0,
             *pool_jpegencoder2 = 0, *pool_h264encoder = 0;
 char *cb_buff = NULL;
 
+char cfg_path[256] = "/etc/raspimjpeg";
+
 char readbuf[FIFO_MAX][2 * MAX_COMMAND_LEN];
 int fd[FIFO_MAX], readi[FIFO_MAX];
 
@@ -363,7 +365,6 @@ int main(int argc, char *argv[]) {
   int onesec_check = 0;
   time_t last_pv_time = 0, pv_time;
   char fdName[FIFO_MAX][128];
-  char cfg_path[256] = "/etc/raspimjpeg";
 
   bcm_host_init();
   //
@@ -379,7 +380,9 @@ int main(int argc, char *argv[]) {
     // Config file with --config or -c
     else if ((strcmp(argv[i], "--config") == 0) || strcmp(argv[i], "-c") == 0) {
       i++;
-      strcpy(cfg_path, argv[i]);
+      if ((i <= argc) && (strncmp(argv[i], "/", 1) == 0)) {
+        strcpy(cfg_path, argv[i]);
+      }
     }
   }
 

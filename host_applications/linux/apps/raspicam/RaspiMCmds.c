@@ -173,7 +173,7 @@ void process_cmd(char *readbuf, int length) {
     break;
   case im:
     if (parstring != 0) {
-      printLog("Capturing to file \n");
+      printLog("Capturing to file\n");
       addUserValue(c_image_path, parstring);
     }
     capt_img();
