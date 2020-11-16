@@ -74,6 +74,7 @@ void printLogEx(int logfile, char *msg, ...) {
   char *timestamp;
   FILE *fp;
   vfprintf(stdout, msg, args);
+  fflush(stdout);
 
   if (cfg_stru[logfile] != 0 && cfg_val[c_log_size] != 0) {
     nofile = (access(cfg_stru[logfile], F_OK) == -1);
@@ -104,6 +105,7 @@ void printLog(char *msg, ...) {
   int nofile = 0;
   FILE *fp;
   vfprintf(stdout, msg, args);
+  fflush(stdout);
 
   if (cfg_stru[c_log_file] != 0 && cfg_val[c_log_size] != 0) {
     nofile = (access(cfg_stru[c_log_file], F_OK) == -1);
