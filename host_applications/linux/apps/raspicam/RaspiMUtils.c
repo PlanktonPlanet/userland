@@ -369,9 +369,9 @@ void createPath(char *filename, char *path) {
       t = strchr(s, '/');
       if (t != NULL) {
         *t = 0;
-        r = mkdir(filename, 0777);
+        r = mkdir(filename, 0755);
         if (r != 0 && errno == EEXIST) {
-          chmod(filename, 0777);
+          chmod(filename, 0755);
           r = 0;
         } else if (r == 0) {
           chown(filename, buf.st_uid, buf.st_gid);
