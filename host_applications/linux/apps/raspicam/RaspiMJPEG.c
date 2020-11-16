@@ -358,6 +358,7 @@ void monitor() {
     }
   }
 }
+
 int main(int argc, char *argv[]) {
   monitor();
   int i, length;
@@ -406,6 +407,8 @@ int main(int argc, char *argv[]) {
 
   printLog("RaspiMJPEG Version %s\n", VERSION);
   exec_macro(cfg_stru[c_startstop], "start");
+
+  cam_get_sensor();
 
   if (cfg_val[c_autostart])
     start_all(0);

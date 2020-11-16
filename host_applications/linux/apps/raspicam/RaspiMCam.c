@@ -963,6 +963,45 @@ void cam_set_autowbgain() {
     error("Could not set sensor area", 0);
 }
 
+void cam_get_sensor(void) {
+  MMAL_COMPONENT_T *camera_info;
+  MMAL_STATUS_T status;
+
+  // Try to get the camera name and maximum supported resolution
+  status =
+      mmal_component_create(MMAL_COMPONENT_DEFAULT_CAMERA_INFO, &camera_info);
+  if (status == MMAL_SUCCESS) {
+    MMAL_PARAMETER_CAMERA_INFO_T param;
+    param.hdr.id = MMAL_PARAMETER_CAMERA_INFO;
+    param.hdr.size =
+        sizeof(param) - 4; // Deliberately undersize to check firmware version
+    status = mmal_port_parameter_get(camera_info->control, &param.hdr);
+
+    if (status != MMAL_SUCCESS) {
+      // Running on newer firmware
+      param.hdr.size = sizeof(param);
+      status = mmal_port_parameter_get(camera_info->control, &param.hdr);
+      if (status == MMAL_SUCCESS && param.num_cameras > 0) {
+        // Take the parameters from the first camera listed.
+        printLog("Camera Name: %s\n", param.cameras[0].camera_name);
+        printLog("Camera Max Width: %d\n", param.cameras[0].max_width);
+        printLog("Camera Max Height: %d\n", param.cameras[0].max_height);
+      } else
+        vcos_log_error(
+            "Cannot read camera info, keeping the defaults for OV5647");
+    } else {
+      // Older firmware
+      printLog("Camera Name: OV5647\n");
+      printLog("Camera max width: 2592\n");
+      printLog("Camera max height: 1944\n");
+    }
+
+    mmal_component_destroy(camera_info);
+  } else {
+    vcos_log_error("Failed to create camera_info component");
+  }
+}
+
 void cam_set(int key) {
   int control = 0;
   unsigned int id;

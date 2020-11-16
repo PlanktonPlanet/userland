@@ -244,6 +244,7 @@ void check_h264_toBox();
 void send_schedulecmd(char *cmd);
 
 // Camera
+void cam_get_sensor(void);
 void cam_set_annotationV3(char *filename_temp, MMAL_BOOL_T enable);
 void cam_set_annotation();
 void thumb_create(char *from_filename, char source);
