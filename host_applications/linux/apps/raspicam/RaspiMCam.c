@@ -463,7 +463,6 @@ void capt_img(void) {
         i_capturing = 1;
       }
       updateStatus();
-      printLog("Image captured");
     } else {
       fclose(jpegoutput2_file);
       free(filename_image);

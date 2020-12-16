@@ -151,12 +151,14 @@ void updateStatus() {
       else
         strcpy(status, "md_video");
     } else {
-      if (!cfg_val[c_motion_detection])
-        if (timelapse)
+      if (!cfg_val[c_motion_detection]) {
+        if (timelapse) {
           strcpy(status, "timelapse");
-        else
+        } else {
           strcpy(status, "ready");
-      else if (timelapse)
+          printLog("Ready\n");
+        }
+      } else if (timelapse)
         strcpy(status, "tl_md_ready");
       else
         strcpy(status, "md_ready");
