@@ -168,3 +168,4 @@ The main Pipe is FIFO which is used by the python script. Commands may also be s
 |cn|1/2|Set camera number (Compute module only)|
 |qp|A BB CC|Set h264 encoding pars A=minimise_frag BB=initial_quant CC=encode_qp|
 |ls|Number|Set log_size|
+|ig|ANA DIG|set image gain, analog and digital (100 = 1.0; default: 150)|

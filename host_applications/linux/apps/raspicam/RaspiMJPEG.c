@@ -194,7 +194,9 @@ char *cfg_key[] = {"annotation",
                    "initial_quant",
                    "encode_qp",
                    "mmal_logfile",
-                   "stop_pause"};
+                   "stop_pause",
+                   "analog_gain",
+                   "digital_gain"};
 
 void term(int signum) { running = 0; }
 

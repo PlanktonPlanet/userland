@@ -105,12 +105,13 @@ void process_cmd(char *readbuf, int length) {
     cn,
     st,
     ls,
-    qp
+    qp,
+    ig
   } pipe_cmd_type;
   char pipe_cmds[] =
       "ca,im,tl,px,bo,tv,vi,an,as,at,ac,ab,sh,co,br,sa,is,vs,rl,ec,em,wb,ag,mm,"
       "fn,ie,ce,ro,fl,ri,ss,qu,pv,bi,ru,md,sc,rs,bu,mn,mt,mi,ms,mb,me,mc,mx,mf,"
-      "mz,vm,vp,wd,sy,um,cn,st,ls,qp";
+      "mz,vm,vp,wd,sy,um,cn,st,ls,qp,ig";
   pipe_cmd_type pipe_cmd;
   int parcount;
   char pars[128][10];
@@ -151,6 +152,9 @@ void process_cmd(char *readbuf, int length) {
     par0 = 0;
   }
 
+  // if key is used in this switch, the value is added at the end by calling a
+  // specific function if two parameters are passed to set two config, one
+  // first use pars[1], pars[0] is parsed at the end
   switch (pipe_cmd) {
   case ca:
     if (par0 == 1) {
@@ -454,6 +458,10 @@ void process_cmd(char *readbuf, int length) {
     break;
   case ls:
     key = c_log_size;
+    break;
+  case ig:
+    addUserValue(c_digital_gain, pars[1]);
+    key = c_analog_gain;
     break;
   default:
     printLog("Unrecognised pipe command\n");

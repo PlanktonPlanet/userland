@@ -92,7 +92,7 @@ extern char *box_files[MAX_BOX_FILES];
 extern int box_head;
 extern int box_tail;
 // hold config file data for both dflt and user config files and u long versions
-#define KEY_COUNT 109
+#define KEY_COUNT 111
 extern char *cfg_strd[KEY_COUNT + 1];
 extern char *cfg_stru[KEY_COUNT + 1];
 extern long int cfg_val[KEY_COUNT + 1];
@@ -110,6 +110,8 @@ extern int mask_disabled;
 extern unsigned char *vector_buffer;
 extern unsigned char *mask_buffer_mem, *mask_buffer;
 
+// cfgkey_type must be in the same order as the key list in *cfg_key[] (see in
+// raspiMJPEG.c) also, KEY_COUNT must be updated to reflect the change
 typedef enum cfgkey_type {
   c_annotation,
   c_anno_background,
@@ -220,6 +222,8 @@ typedef enum cfgkey_type {
   c_encode_qp,
   c_mmal_logfile,
   c_stop_pause,
+  c_analog_gain,
+  c_digital_gain
 } cfgkey_type;
 
 // Utils
@@ -263,6 +267,7 @@ void cam_set_ce();
 void cam_set_flip();
 void cam_set_roi();
 void cam_set_autowbgain();
+void cam_set_gains();
 void cam_set(int key);
 void h264_enable_output();
 void start_all(int load_conf);

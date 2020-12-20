@@ -963,6 +963,23 @@ void cam_set_autowbgain() {
     error("Could not set sensor area", 0);
 }
 
+void cam_set_gains() {
+  MMAL_RATIONAL_T rational = {0, 65536};
+  MMAL_STATUS_T status;
+
+  rational.num = (unsigned int)(cfg_val[c_analog_gain] * 655.36);
+  status = mmal_port_parameter_set_rational(
+      camera->control, MMAL_PARAMETER_ANALOG_GAIN, rational);
+  if (status != MMAL_SUCCESS)
+    error("Could not set analog gain", 0);
+
+  rational.num = (unsigned int)(cfg_val[c_digital_gain] * 655.36);
+  status = mmal_port_parameter_set_rational(
+      camera->control, MMAL_PARAMETER_DIGITAL_GAIN, rational);
+  if (status != MMAL_SUCCESS)
+    error("Could not set digital gain", 0);
+}
+
 void cam_get_sensor(void) {
   MMAL_COMPONENT_T *camera_info;
   MMAL_STATUS_T status;
@@ -1092,6 +1109,9 @@ void cam_set(int key) {
     break;
   case c_autowbgain_r:
     cam_set_autowbgain();
+    break;
+  case c_analog_gain:
+    cam_set_gains();
     break;
   }
 
